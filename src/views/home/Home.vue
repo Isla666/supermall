@@ -9,89 +9,7 @@
     <feature-view/>
     <tab-control class="tab-control"
                  :titles="['流行', '新款', '精选']" />
-
-    <ul>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-      <li>列表</li>
-    </ul>
+    <goods-list :goods="goods['pop'].list"/>
   </div>
 </template>
 
@@ -107,7 +25,9 @@ import FeatureView from './childCopms/FeatureView'
 // 导入NavBar模块
 import NavBar from 'components/common/navbar/NavBar';
 // 导入TabControl组件
-import TabControl from 'components/content/tabcontrol/TabControl'
+import TabControl from 'components/content/tabcontrol/TabControl';
+// 导入商品列表大组件
+import GoodsList from 'components/content/goods/GoodsList'
 
 
 // 引入home.js里面的请求方法
@@ -127,6 +47,8 @@ export default {
       NavBar,
       // 注册TabControl组件
       TabControl,
+      // 注册商品列表组件
+      GoodsList
   },
   data(){
     return{
@@ -137,7 +59,7 @@ export default {
       // 所以分别建立三个对象存放具体内容，并且把初始页码也存上
       // 接下来去home.js里面写网络请求
       goods: {
-        'pop': {page: 0, list: ['aa','bb','ccc']},
+        'pop': {page: 0, list: []},
         'new': {page: 0, list: []},
         'sell': {page: 0, list: []},
       },
@@ -173,6 +95,7 @@ export default {
       // 才能看到新一页数据
       const page = this.goods[type].page + 1;
       getHomeGoods(type, page).then(res => {
+        console.log(res)
         // 拿到相应选中标签的数据，并且要把数据存储到data里面对应的相应的list里面，
         // “...”原理是会对数据进行一个个解析，然后追加到数组里面，或者这里也可以用
         // for循环遍历数据，并且push到新数据里面
