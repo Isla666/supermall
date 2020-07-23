@@ -35,6 +35,8 @@ export default {
     methods: {
         itemClick(index){
             this.currentIndex = index;
+            // 把选中的index传到Home.vue里面，通过$emit向父元素发送自定义事件，把数据传递过去
+            this.$emit('tabClick',index);
         }
     },
     mounted() {
